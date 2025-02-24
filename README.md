@@ -1,5 +1,8 @@
 # Welcome to your Lovable project
 
+## The whole project is made by Lovable.dev
+### Just exploring it and thought let's make something by just using minimal prompts.
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/a5f79b89-20c4-456e-b103-fe2530df8f21
