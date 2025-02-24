@@ -2,6 +2,7 @@
 import { SearchRecipes } from "@/components/SearchRecipes";
 import { RecipeCard } from "@/components/RecipeCard";
 import { Leaf } from "lucide-react";
+import { useState } from "react";
 
 const featuredRecipes = [
   {
@@ -28,6 +29,21 @@ const featuredRecipes = [
 ];
 
 const Index = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredRecipes = featuredRecipes.filter((recipe) => {
+    const searchTerm = searchQuery.toLowerCase();
+    return (
+      recipe.title.toLowerCase().includes(searchTerm) ||
+      recipe.description.toLowerCase().includes(searchTerm) ||
+      recipe.category.toLowerCase().includes(searchTerm)
+    );
+  });
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
   return (
     <div className="min-h-screen bg-secondary">
       {/* Hero Section */}
@@ -45,7 +61,7 @@ const Index = () => {
             Find the perfect recipe for your healthy lifestyle
           </p>
           <div className="mt-8">
-            <SearchRecipes />
+            <SearchRecipes onSearch={handleSearch} />
           </div>
         </div>
       </section>
@@ -53,15 +69,25 @@ const Index = () => {
       {/* Featured Recipes Section */}
       <section className="container py-16 animate-slide-up">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Featured Healthy Recipes</h2>
+          <h2 className="text-3xl font-bold mb-4">
+            {searchQuery ? "Search Results" : "Featured Healthy Recipes"}
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore our collection of nutritious and delicious recipes crafted for a healthier you
+            {searchQuery
+              ? `Found ${filteredRecipes.length} recipe${filteredRecipes.length !== 1 ? "s" : ""} matching your search`
+              : "Explore our collection of nutritious and delicious recipes crafted for a healthier you"}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredRecipes.map((recipe) => (
-            <RecipeCard key={recipe.title} {...recipe} />
-          ))}
+          {filteredRecipes.length > 0 ? (
+            filteredRecipes.map((recipe) => (
+              <RecipeCard key={recipe.title} {...recipe} />
+            ))
+          ) : (
+            <div className="col-span-full text-center text-muted-foreground py-8">
+              No recipes found matching your search. Try different keywords!
+            </div>
+          )}
         </div>
       </section>
     </div>
