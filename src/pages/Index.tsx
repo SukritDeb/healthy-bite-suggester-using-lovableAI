@@ -1,12 +1,69 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { SearchRecipes } from "@/components/SearchRecipes";
+import { RecipeCard } from "@/components/RecipeCard";
+import { Leaf } from "lucide-react";
+
+const featuredRecipes = [
+  {
+    title: "Quinoa Buddha Bowl",
+    description: "A nourishing bowl packed with protein-rich quinoa, roasted vegetables, and tahini dressing.",
+    cookingTime: "25 mins",
+    category: "Vegetarian",
+    imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=500",
+  },
+  {
+    title: "Green Smoothie Bowl",
+    description: "Start your day with this antioxidant-rich smoothie bowl topped with fresh fruits and seeds.",
+    cookingTime: "10 mins",
+    category: "Breakfast",
+    imageUrl: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=500",
+  },
+  {
+    title: "Grilled Salmon Salad",
+    description: "Fresh grilled salmon served on a bed of mixed greens with avocado and citrus dressing.",
+    cookingTime: "20 mins",
+    category: "Seafood",
+    imageUrl: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=500",
+  },
+];
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-secondary">
+      {/* Hero Section */}
+      <section className="relative h-[70vh] flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&q=80&w=1000')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative z-10 text-center space-y-6 p-4 animate-fade-in">
+          <div className="flex items-center justify-center gap-2 text-white/90">
+            <Leaf className="w-6 h-6" />
+            <span className="text-lg font-medium">Healthy Bites</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-white max-w-2xl mx-auto leading-tight">
+            Discover Delicious & Healthy Recipes
+          </h1>
+          <p className="text-lg text-white/90 max-w-xl mx-auto">
+            Find the perfect recipe for your healthy lifestyle
+          </p>
+          <div className="mt-8">
+            <SearchRecipes />
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Recipes Section */}
+      <section className="container py-16 animate-slide-up">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4">Featured Healthy Recipes</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Explore our collection of nutritious and delicious recipes crafted for a healthier you
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredRecipes.map((recipe) => (
+            <RecipeCard key={recipe.title} {...recipe} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
